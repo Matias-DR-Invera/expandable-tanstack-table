@@ -1,1 +1,0 @@
-export { default as tableData } from './table-data'

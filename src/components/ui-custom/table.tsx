@@ -1,11 +1,11 @@
-import { type TableData } from '@/lib'
-import { Table as TTT, flexRender } from '@tanstack/react-table'
+import { Asset } from '@/lib/data'
+import { Table, flexRender } from '@tanstack/react-table'
 
 /**
  * Copied from react-table "Basic" example (with footer removed)
  * https://tanstack.com/table/v8/docs/examples/react/basic
  */
-export default function Table ({ table }: { table: TTT<TableData> }) {
+const CustomTable = ({ table }: { table: Table<Asset[]> }) => {
   return (
     <div className='p-2'>
       <table>
@@ -28,11 +28,15 @@ export default function Table ({ table }: { table: TTT<TableData> }) {
         <tbody>
           {table.getRowModel().rows.map(row => (
             <tr key={row.id}>
-              {row.getVisibleCells().map(cell => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
+              {/* si tiene props.subCategories entonces renderizamos button con texto props.category aunque no necesariamente aplicaría esa logica directamente, pero si la idea/concepto */}
+              {
+                // row.original
+                row.getVisibleCells().map(cell => (
+                  <td key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))
+              }
             </tr>
           ))}
         </tbody>
@@ -40,3 +44,5 @@ export default function Table ({ table }: { table: TTT<TableData> }) {
     </div>
   )
 }
+
+export default CustomTable
